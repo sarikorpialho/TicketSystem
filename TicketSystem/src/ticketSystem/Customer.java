@@ -3,12 +3,17 @@ package ticketSystem;
 public class Customer {
 	private String firstname;
 	private String lastname;
-	private String email;
 	
-	public Customer(String firstname, String lastname, String email) {
+	public Customer(String firstname, String lastname) {
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.email = email;
 	}
+
+	@Override
+	public String toString() {
+		return " " + firstname + " " + lastname;
+	}
+	
+	
 	
 }

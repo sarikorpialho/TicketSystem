@@ -1,42 +1,50 @@
 package ticketSystem;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Flight {
 	private String target;
-	private Date date;
-	private ArrayList<Seat> seats;
+	private String date;
+	//private ArrayList<Seat> seats;
+	private ArrayList<Flight>flights;
 	
-	public Flight(String target, Date date) {
+	//Create new flight
+	public Flight(String target, String date) {
 		this.target = target;
 		this.date = date;
-		seats = new ArrayList<>();
+		//seats = new ArrayList<>();
+		flights = new ArrayList<>();
+	}
+	//Add new flight to list
+	public void addFlight(Flight f) {
+		flights.add(f);
+	}
+	//remove flight from list
+	public void removeFlight(Flight f) {
+		flights.remove(f);
+	}
+	//get all available flight
+	public ArrayList<Flight> getFlights() {
+		return flights;
 	}
 
-	public String getTarget() {
-		return target;
+	public void setFlights(ArrayList<Flight> flights) {
+		this.flights = flights;
+	}
+	 
+	public void printAllFlights() {
+		
+		for(Flight f:flights) {
+			System.out.println(f.toString());
+		}
 	}
 
-	public void setTarget(String target) {
-		this.target = target;
+	@Override
+	public String toString() {
+		
+		return "Flight: " + target + ", date: " + date;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public ArrayList<Seat> getSeats() {
-		return seats;
-	}
-
-	public void setSeats(ArrayList<Seat> seats) {
-		this.seats = seats;
-	}
 	
 
 }

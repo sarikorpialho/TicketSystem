@@ -1,16 +1,30 @@
 package ticketSystem;
 
-import java.util.HashMap;
 
 public class Booking {
-	private int bookingNumber;
 	private Flight flight;
-	private HashMap<Customer,Seat> seat;
+	private Customer customer;
+	private Seat SeatClass;
 	
-	public Booking(int bookingNumber, Flight flight) {
-		this.bookingNumber = bookingNumber;
-		seat = new HashMap<>();
+	//Create new booking
+	public Booking(Flight flight, Customer customer, Seat SeatClass) {
+		this.flight = flight;
+		this.customer = customer;
+		this.SeatClass = SeatClass;	
 	}
+	
+
+	public Flight getFlight() {
+		return flight;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Booking: " +" Customer:" + customer + ", "+flight +  ", "+"\n"
+				+ SeatClass+"\n";
+	}
+	
 	
 
 }

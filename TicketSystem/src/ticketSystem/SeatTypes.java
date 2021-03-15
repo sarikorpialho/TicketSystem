@@ -1,6 +1,6 @@
 package ticketSystem;
 
 public enum SeatTypes {
-	FIRSCLASS, ECONOMYCLASS;
+	FIRSTCLASS, ECONOMYCLASS;
 
 }

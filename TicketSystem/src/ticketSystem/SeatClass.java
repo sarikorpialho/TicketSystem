@@ -9,11 +9,18 @@ public class SeatClass extends Seat{
 		
 	}
 
-	public SeatTypes getSeatTypes(int seatNumber) {
-		if(seatNumber < 19) {
-			return SeatTypes.FIRSCLASS;
-		}
-		return SeatTypes.ECONOMYCLASS;
+	public SeatTypes getSeatTypes() {
+		return seatTypes;
 	}
+
+	public void setSeatTypes(SeatTypes seatTypes) {
+		this.seatTypes = seatTypes;
+	}
+
+	@Override
+	public String toString() {
+		return "SeatNumber: " + super.getSeatNumber()+", "+ seatTypes;
+	}
+	
 	
 }
