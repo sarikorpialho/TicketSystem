@@ -1,25 +1,24 @@
 package ticketSystem;
 
 public class SeatClass extends Seat{
-	private SeatTypes seatTypes;
 	
-	public SeatClass(int seatNumber, SeatTypes seatTypes) {
+	//private SeatTypes seatTypes;
+	
+	public SeatClass(int seatNumber) {
 		super(seatNumber);
-		this.seatTypes = seatTypes;
 		
 	}
 
-	public SeatTypes getSeatTypes() {
-		return seatTypes;
-	}
-
-	public void setSeatTypes(SeatTypes seatTypes) {
-		this.seatTypes = seatTypes;
+	public SeatTypes getSeatTypes(int seatnumber) {
+		if (seatnumber < 15) {
+			return SeatTypes.FIRSTCLASS;
+		}
+		return SeatTypes.ECONOMYCLASS;
 	}
 
 	@Override
 	public String toString() {
-		return "SeatNumber: " + super.getSeatNumber()+", "+ seatTypes;
+		return "SeatNumber: " + super.getSeatNumber()+", "+ getSeatTypes(super.getSeatNumber());
 	}
 	
 	

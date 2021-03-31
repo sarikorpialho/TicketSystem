@@ -3,10 +3,15 @@ package ticketSystem;
 import java.util.ArrayList;
 
 public class Trip {
+	
+	private Customer customer;
+	private Seat SeatClass;
 	private ArrayList<Booking> bookings;
 	private ArrayList<Booking> removed;
 	
 	public Trip() {
+		//this.customer = customer;
+		//this.SeatClass = SeatClass;
 		this.bookings = new ArrayList<>();
 		this.removed = new ArrayList<>();
 	}
@@ -23,9 +28,11 @@ public class Trip {
 		else {
 			for(Booking b : bookings) {
 				if(b.equals(booking)) {
+					//siirret‰‰n varaus poistettujen listalle
 					removed.add(b);
 				}
 			}
+			//poistetaan varaus
 			bookings.removeAll(removed);
 		}
 	}
@@ -65,7 +72,8 @@ public class Trip {
 	}
 	@Override
 	public String toString() {
-		return ""+bookings;
+		return "Trip " + bookings;
 	}
+	
 	
 }

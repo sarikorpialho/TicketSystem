@@ -1,48 +1,72 @@
 package ticketSystem;
 
-import java.util.ArrayList;
+
 
 public class Flight {
 	private String target;
 	private String date;
-	//private ArrayList<Seat> seats;
-	private ArrayList<Flight>flights;
+	private int numberOfSeats;
+	private String flightnumber;
+
+	
+	
 	
 	//Create new flight
-	public Flight(String target, String date) {
+	public Flight(String flightnumber,String date, String target, int numberOfSeats) {
 		this.target = target;
 		this.date = date;
-		//seats = new ArrayList<>();
-		flights = new ArrayList<>();
+		this.numberOfSeats = numberOfSeats;
+		this.flightnumber = flightnumber;			
 	}
-	//Add new flight to list
-	public void addFlight(Flight f) {
-		flights.add(f);
+	public Flight(String flightnumber,String date, String target) {
+		this.target = target;
+		this.date = date;
+		this.flightnumber = flightnumber;			
 	}
-	//remove flight from list
-	public void removeFlight(Flight f) {
-		flights.remove(f);
+	public Flight() {
 	}
-	//get all available flight
-	public ArrayList<Flight> getFlights() {
-		return flights;
+	
+	public String getFlightnumber() {
+		return flightnumber;
+	}
+	public void setFlightnumber(String flightnumber) {
+		this.flightnumber = flightnumber;
+	}
+	/*public Flight(String date, String target) {
+		this.date=date;
+		this.target=target;
+	}*/
+	
+	public String getTarget() {
+		return target;
 	}
 
-	public void setFlights(ArrayList<Flight> flights) {
-		this.flights = flights;
+	public void setTarget(String target) {
+		this.target = target;
 	}
-	 
-	public void printAllFlights() {
-		
-		for(Flight f:flights) {
-			System.out.println(f.toString());
-		}
+
+	public String getDate() {
+		return date;
 	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public int getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(int numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	
 
 	@Override
 	public String toString() {
 		
-		return "Flight: " + target + ", date: " + date;
+		return "Flight number: " + flightnumber +" "+ "Flight date: " + date + " target: " + target;
 	}
 
 	
