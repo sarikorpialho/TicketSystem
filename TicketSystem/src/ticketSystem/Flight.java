@@ -6,19 +6,19 @@ public class Flight {
 	private String target;
 	private String date;
 	private int numberOfSeats;
-	private String flightnumber;
+	private int flightnumber;
 
 	
 	
 	
 	//Create new flight
-	public Flight(String flightnumber,String date, String target, int numberOfSeats) {
+	public Flight(int flightnumber,String date, String target, int numberOfSeats) {
 		this.target = target;
 		this.date = date;
 		this.numberOfSeats = numberOfSeats;
 		this.flightnumber = flightnumber;			
 	}
-	public Flight(String flightnumber,String date, String target) {
+	public Flight(int flightnumber,String date, String target) {
 		this.target = target;
 		this.date = date;
 		this.flightnumber = flightnumber;			
@@ -26,10 +26,10 @@ public class Flight {
 	public Flight() {
 	}
 	
-	public String getFlightnumber() {
+	public int getFlightnumber() {
 		return flightnumber;
 	}
-	public void setFlightnumber(String flightnumber) {
+	public void setFlightnumber(int flightnumber) {
 		this.flightnumber = flightnumber;
 	}
 	/*public Flight(String date, String target) {

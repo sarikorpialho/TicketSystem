@@ -12,7 +12,7 @@ public class Testi {
 		UserInterface i = new UserInterface(r);
 		
 		
-		Flight b = new Flight("1","25.5.2021","Uusi-Seelanti", 30);
+		Flight b = new Flight(1,"25.5.2021","Uusi-Seelanti", 30);
 		b.getNumberOfSeats();
 		
 		

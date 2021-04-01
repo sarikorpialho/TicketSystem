@@ -28,6 +28,17 @@ public class Booking {
 	public void removeFlight(Flight f) {
 		flights.remove(f);
 	}
+	public boolean flightNumber(int number){
+		
+		for(Flight f:flights) {
+			if(number == f.getFlightnumber()) {
+				return true;
+			}
+		}
+		return false;
+		
+		
+	}
 	
 	public ArrayList<Flight> getFlights() {
 		return flights;
@@ -39,10 +50,11 @@ public class Booking {
 		
 		
 		for(Flight f:flights) {
+			
 			System.out.println(f.toString());
 		}
 	}
-	public void addSeats() {
+	/*public void addSeats() {
 		int numberOfSeats = flight.getNumberOfSeats();
 		
 		for(int i = 1;i<numberOfSeats;i++) {
@@ -65,7 +77,7 @@ public class Booking {
 	
 	public void setFreeSeats(ArrayList<Integer> freeSeats) {
 		this.freeSeats = freeSeats;
-}
+}*/
 	
 	
 

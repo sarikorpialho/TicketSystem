@@ -9,6 +9,7 @@ public class UserInterface {
 	//private Booking booking;
 	private ArrayList<Integer> freeSeats;
 	private ArrayList<Integer> reservedSeats;
+	private ArrayList<Flight> flights;
 	
 	
 	
@@ -16,7 +17,7 @@ public class UserInterface {
 		this.s = s;
 		this.freeSeats = new ArrayList<>();
 		this.reservedSeats = new ArrayList<>();
-		//this.flights = new ArrayList<>();
+		this.flights = new ArrayList<>();
 		
 		
 	}
@@ -38,66 +39,85 @@ public class UserInterface {
 			System.out.println("4 - Exit booking system.");
 			System.out.println();
 			
+			//Check if command is valid
+			validCommand();
+				
+			int command = Integer.valueOf(s.nextLine());
 			
 			
-			String command = s.nextLine();
+			if (command > 4) {
+				System.out.println("Invalid number. Please try again.");
+				System.out.println();
+			}
 			
-			if(command.equals("4")) {
+			if(command == 4) {
 				System.out.println();
 				System.out.println("Thanks for using our booking system.");
 				break;		
 			}
-			if(command.equals("1")) {
+			if(command == 3) {
+				newReservation();
+			}
+			if(command == 2) {
 				newReservation();
 			}
 			
-				
+			if(command == 1) {
+				newReservation();
+			}		
 		}
 			
 	}
 	
-	/*public void readCommand() {
-		
-	}*/
-	
-	
-	
 	public void newReservation() {
 		
+		//Create new flights 
 		Booking newFlight = new Booking();
-		Flight p = new Flight("1","5.5.2021","Pariisi", 40);
+		Flight p = new Flight(1,"5.5.2021","Pariisi", 40);
 		newFlight.addFlight(p);
 		
-		
-		Flight r = new Flight("2","9.5.2021","Rooma",30);
+		Flight r = new Flight(2,"9.5.2021","Rooma",30);
 		newFlight.addFlight(r);
 		
-		Flight l = new Flight("3","15.5.2021", "Lontoo",20);
+		Flight l = new Flight(3,"15.5.2021", "Lontoo",20);
 		newFlight.addFlight(l);
 		
+		//Print all available flights
 		System.out.println("Available flights: ");
 		newFlight.printAllFlights();
 		System.out.println();
 		//System.out.print("Your flights date? : ");
 		//String date = s.nextLine();
-		System.out.print("Your flights number? : ");
-		String number = s.nextLine();
 		
-		System.out.println("Lennon vapaat paikat: ");
+		int number = 0;
+		while(newFlight.flightNumber(number)==false) {
+		System.out.print("Your flights number? : ");
+		validCommand();
+		number = Integer.valueOf(s.nextLine());
+		
+			System.out.println("Invalid number. Please try again.");
+			System.out.println();
+		
+		}
+		
+		System.out.println("Free seats: ");
 		System.out.println();
 		Flight a = new Flight();
-		if (p.getFlightnumber().equals(number)) {
+		if (p.getFlightnumber() == number) {
 			a = new Flight(p.getFlightnumber(),p.getDate(),p.getTarget());
 			System.out.println(addSeats(p.getNumberOfSeats()));
-		}else if(r.getFlightnumber().equals(number)) {
+		}else if(r.getFlightnumber() == number) {
 			a = new Flight(r.getFlightnumber(),r.getDate(),r.getTarget());
 			System.out.println(addSeats(r.getNumberOfSeats()));
 		}else {
 			a = new Flight(l.getFlightnumber(),l.getDate(),l.getTarget());
 			System.out.println(addSeats(l.getNumberOfSeats()));
 		}
+		
 		System.out.println();
 		System.out.print("Minkä paikkanumeron haluaisit varata? ");
+		validCommand();
+		System.out.println();
 		int seatNumber = Integer.valueOf(s.nextLine());
 		removeSeat(seatNumber);
 		
@@ -109,32 +129,49 @@ public class UserInterface {
 		Seat s = new SeatClass(seatNumber);
 		
 		
-		
+		//Create new Trip
 		Trip t = new Trip();
 		Booking o = new Booking(a,customer,s);
 		t.addTrip(o);
 		System.out.println(t.toString());
-		
-		
-		
-	
 	
 	}
+	//Add seats to flight
 	public ArrayList<Integer> addSeats(int numberOfSeats) {
 			
-			for(int i = 1;i<numberOfSeats;i++) {
+			for(int i = 1;i<numberOfSeats+1;i++) {
 				freeSeats.add(i);
 			}
 			return freeSeats;
 	
 	}
+	//remove seat from list
 	public void removeSeat(int number) {
 		
 		for(int i = 0;i<freeSeats.size();i++) {
 			if(freeSeats.get(i) == number) {
 				freeSeats.remove(i);
-				//reservedSeats.add(n);
+				reservedSeats.add(i);
 			}
 		}
 	}
+	/*public void addFlight(Flight flight) {
+		flights.add(flight);
+	}*/
+	public boolean fullFlight(Flight F) {
+		if(freeSeats.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	//check if command is valid
+	public void validCommand() {
+		
+		while (!s.hasNextInt()) {
+			s.nextLine();
+			System.out.println("Invalid number. Please try again.");
+			System.out.println();
+		}
+	}
 }
+
