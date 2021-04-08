@@ -1,11 +1,15 @@
 package ticketSystem;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Testi {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		ArrayList<Integer> freeSeats = new ArrayList<>();
 		// TODO Auto-generated method stub
 		Scanner r = new Scanner(System.in);
@@ -14,31 +18,16 @@ public class Testi {
 		
 		Flight b = new Flight(1,"25.5.2021","Uusi-Seelanti", 30);
 		b.getNumberOfSeats();
+		System.out.println(b);
 		
 		
 		
 		
-		
-		Customer sari = new Customer("Sari","Korpialho");
-		Seat s = new SeatClass(17);
-		Booking d = new Booking(b,sari,s);
-		//System.out.println(a.toString());
-		
-		
-		
-		//d.removeSeat(15);
 		
 		
 		//System.out.println(d.equals(c));
 	
 		
-		
-		//System.out.println(c.toString());
-		Trip Korpialho = new Trip();
-		//Korpialho.addTrip(c);
-		Korpialho.addTrip(d);
-		//Korpialho.removeTrip(c);
-		System.out.println(Korpialho.getBookings());
 		
 		
 		i.startBooking();

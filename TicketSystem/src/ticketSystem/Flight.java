@@ -66,7 +66,8 @@ public class Flight {
 	@Override
 	public String toString() {
 		
-		return "Flight number: " + flightnumber +" "+ "Flight date: " + date + " target: " + target;
+		return "Flight number: " + flightnumber +", "+ "Flight date: " + date +
+				", "+"Target: " + target;
 	}
 
 	

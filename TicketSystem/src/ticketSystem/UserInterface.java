@@ -1,15 +1,22 @@
 package ticketSystem;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
 	private Scanner s;
-	//private ArrayList<Flight> flights;
+	private ArrayList<Booking> bookings;
 	//private Booking booking;
 	private ArrayList<Integer> freeSeats;
 	private ArrayList<Integer> reservedSeats;
-	private ArrayList<Flight> flights;
 	
 	
 	
@@ -17,13 +24,12 @@ public class UserInterface {
 		this.s = s;
 		this.freeSeats = new ArrayList<>();
 		this.reservedSeats = new ArrayList<>();
-		this.flights = new ArrayList<>();
-		
+		this.bookings = new ArrayList<>();
 		
 	}
 	
 	
-	public void startBooking() {
+	public void startBooking() throws IOException {
 		
 		while(true) {
 		
@@ -56,10 +62,10 @@ public class UserInterface {
 				break;		
 			}
 			if(command == 3) {
-				newReservation();
+				cancelReservation();
 			}
 			if(command == 2) {
-				newReservation();
+				readAllLines();
 			}
 			
 			if(command == 1) {
@@ -69,7 +75,7 @@ public class UserInterface {
 			
 	}
 	
-	public void newReservation() {
+	public void newReservation()  {
 		
 		//Create new flights 
 		Booking newFlight = new Booking();
@@ -90,8 +96,9 @@ public class UserInterface {
 		//String date = s.nextLine();
 		
 		int number = 0;
-		while(newFlight.flightNumber(number)==false) {
-		System.out.print("Your flights number? : ");
+		//check flight number validity
+		while(newFlight.validFlightNumber(number)==false) {
+		System.out.print("Your flight number? : ");
 		validCommand();
 		number = Integer.valueOf(s.nextLine());
 		
@@ -100,6 +107,7 @@ public class UserInterface {
 		
 		}
 		
+		//get free seats of chosen flight
 		System.out.println("Free seats: ");
 		System.out.println();
 		Flight a = new Flight();
@@ -115,7 +123,7 @@ public class UserInterface {
 		}
 		
 		System.out.println();
-		System.out.print("Minkä paikkanumeron haluaisit varata? ");
+		System.out.print("Please, choose your seat number: ");
 		validCommand();
 		System.out.println();
 		int seatNumber = Integer.valueOf(s.nextLine());
@@ -130,10 +138,18 @@ public class UserInterface {
 		
 		
 		//Create new Trip
-		Trip t = new Trip();
-		Booking o = new Booking(a,customer,s);
-		t.addTrip(o);
-		System.out.println(t.toString());
+		Booking o = new Booking(1002,customer,a,s);
+		//Trip t = new Trip(a,customer,s);
+		try {
+			write(o.csvFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//t.addTrip(o);
+		
+		System.out.println();
+		System.out.println(o.toString());
 	
 	}
 	//Add seats to flight
@@ -155,9 +171,11 @@ public class UserInterface {
 			}
 		}
 	}
-	/*public void addFlight(Flight flight) {
-		flights.add(flight);
-	}*/
+	public void cancelReservation() throws IOException {
+		
+		clearTextFile();
+		
+	}
 	public boolean fullFlight(Flight F) {
 		if(freeSeats.isEmpty()) {
 			return true;
@@ -172,6 +190,70 @@ public class UserInterface {
 			System.out.println("Invalid number. Please try again.");
 			System.out.println();
 		}
+	}
+	
+	public void write(String trip)throws IOException{
+		//File f = new File("saveBooking/bookings.txt");
+		
+		FileWriter fw = new FileWriter("saveBooking/bookings.txt",true);
+		
+		fw.write(trip+"\n");
+		fw.flush();
+		fw.close();
+	}
+	public void clearTextFile() throws IOException {
+		
+		FileWriter fw = new FileWriter("saveBooking/bookings.txt");
+		
+		fw.write("");
+		fw.flush();
+		fw.close();
+	}
+	public void readAllLines() {
+		
+		//read all lines in file
+		ArrayList<String> lines = new ArrayList<>();
+		
+		try(Scanner reader = new Scanner(new File("saveBooking/bookings.txt"))){
+			
+			while(reader.hasNextLine()) {
+				String line = reader.nextLine();
+				lines.add(line);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		for(String l:lines) {
+			String[] pieces = l.split(",");
+			int bookingNumber = Integer.valueOf(pieces[0]);
+			int flightNumber = Integer.valueOf(pieces[1]);
+			String date = pieces[2];
+			String target = pieces[3];
+			String firstname = pieces[4];
+			String lastname = pieces[5];
+			int seatnumber = Integer.valueOf(pieces[6]);
+			Customer c = new Customer(firstname,lastname);
+			Flight f = new Flight(flightNumber,date,target);
+			Seat s = new SeatClass(seatnumber);
+			
+			Booking b = new Booking(bookingNumber,c,f,s);
+			bookings.add(b);
+			//words.addAll(Arrays.asList(pieces));
+		}
+		System.out.println(bookings);
+	}
+	
+	
+	public ArrayList<String> commaSeparateList(String s){
+		String[] pieces = s.split(",");
+		ArrayList<String> words = new ArrayList<>();
+		
+		for(String w:pieces) {
+			words.add(w);
+		}
+		System.out.println(words);
+		return words;
 	}
 }
 

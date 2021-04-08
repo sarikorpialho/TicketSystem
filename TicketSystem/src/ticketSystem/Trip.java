@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class Trip {
 	
 	private Customer customer;
-	private Seat SeatClass;
+	private Seat seat;
+	private Flight flight;
 	private ArrayList<Booking> bookings;
 	private ArrayList<Booking> removed;
 	
-	public Trip() {
-		//this.customer = customer;
-		//this.SeatClass = SeatClass;
+	public Trip(Flight flight,Customer customer,Seat seat) {
+		this.customer = customer;
+		this.seat = seat;
 		this.bookings = new ArrayList<>();
 		this.removed = new ArrayList<>();
 	}
@@ -72,7 +73,8 @@ public class Trip {
 	}
 	@Override
 	public String toString() {
-		return "Trip " + bookings;
+		return flight.getDate()+","+flight.getTarget()+","+
+				customer.toString()+","+seat.getSeatNumber();
 	}
 	
 	
