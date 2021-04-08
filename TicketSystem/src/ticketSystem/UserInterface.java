@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class UserInterface {
 	private Scanner s;
 	private ArrayList<Booking> bookings;
-	//private Booking booking;
 	private ArrayList<Integer> freeSeats;
 	private ArrayList<Integer> reservedSeats;
 	
@@ -224,6 +223,7 @@ public class UserInterface {
 			System.out.println(e.getMessage());
 		}
 		
+		//create Booking object and add to list
 		for(String l:lines) {
 			String[] pieces = l.split(",");
 			int bookingNumber = Integer.valueOf(pieces[0]);
@@ -239,7 +239,6 @@ public class UserInterface {
 			
 			Booking b = new Booking(bookingNumber,c,f,s);
 			bookings.add(b);
-			//words.addAll(Arrays.asList(pieces));
 		}
 		System.out.println(bookings);
 	}
