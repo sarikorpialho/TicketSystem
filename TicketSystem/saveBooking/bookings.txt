@@ -1,2 +1,0 @@
-1002,3,15.5.2021,Lontoo,Sari,Korpialho,10
-1001,2,9.5.2021,Rooma,Matti,Meikäläinen,20

@@ -65,6 +65,18 @@ public class Booking {
 		this.bookingNumber = bookingNumber;
 	}
 	
+	public Seat getSeatClass() {
+		return SeatClass;
+	}
+	public void setSeatClass(Seat seatClass) {
+		SeatClass = seatClass;
+	}
+	public Flight getFlight() {
+		return flight;
+	}
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
 	@Override
 	public String toString() {
 		return "Booking number: "+this.bookingNumber+" "+"Customer:" + customer + 

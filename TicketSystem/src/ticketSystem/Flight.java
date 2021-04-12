@@ -32,10 +32,6 @@ public class Flight {
 	public void setFlightnumber(int flightnumber) {
 		this.flightnumber = flightnumber;
 	}
-	/*public Flight(String date, String target) {
-		this.date=date;
-		this.target=target;
-	}*/
 	
 	public String getTarget() {
 		return target;
