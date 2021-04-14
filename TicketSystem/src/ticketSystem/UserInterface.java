@@ -3,24 +3,24 @@ package ticketSystem;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
-
+/** Represents user interface
+ * 
+ * @author korpi
+ *
+ */
 public class UserInterface {
 	private Scanner s;
 	private ArrayList<Booking> bookings;
 	private ArrayList<Integer> freeSeats;
 	private ArrayList<Integer> reservedSeats;
 	private ArrayList<Integer> bookingNumber;
-	
-	
-	
+	/** Create new user interface.
+	 * 
+	 * @param s
+	 */
 	public UserInterface(Scanner s) {
 		this.s = s;
 		this.freeSeats = new ArrayList<>();
@@ -28,8 +28,10 @@ public class UserInterface {
 		this.bookings = new ArrayList<>();
 		this.bookingNumber = new ArrayList<>();
 	}
-	
-	
+	/** Start a new booking.
+	 * 
+	 * @throws IOException
+	 */
 	public void startBooking() throws IOException {
 		
 		System.out.println("Welcome to booking service of Flights.");
@@ -78,7 +80,9 @@ public class UserInterface {
 		}
 			
 	}
-	
+	/** Make new reservation.
+	 * 
+	 */
 	public void newReservation()  {
 		
 		//Create new flights 
@@ -99,21 +103,19 @@ public class UserInterface {
 		
 		
 		int number = 0;
-		//check flight number validity
+		//Check flight number validity
 		while(newFlight.validFlightNumber(number)==false) {
 			System.out.print("Your flight number? : ");
 			validCommand();
-			number = Integer.valueOf(s.nextLine());
-		
-		
+			number = Integer.valueOf(s.nextLine());	
 			System.out.println();
-		
 		}
 		
-		//get free seats of chosen flight
+		//Get free seats of selected flight
 		System.out.println("Free seats: ");
 		System.out.println();
 		
+		//Create new selected flight.
 		Flight a = new Flight();
 		if (p.getFlightnumber() == number) {
 			addSeats(p.getNumberOfSeats());
@@ -129,6 +131,7 @@ public class UserInterface {
 			addSeats(l.getNumberOfSeats());
 			System.out.println(freeSeats(l));			
 		}
+		// Check if flight is full
 		if (fullFlight()== true) {
 			System.out.println("Flight is full.");
 			return;
@@ -136,7 +139,7 @@ public class UserInterface {
 		
 		System.out.println();
 		System.out.print("Please, choose your seat number: ");
-		System.out.println("Numbers 1-18 FirstClass and 19- EconomyClass");
+		System.out.println("Numbers 1-18 FirstClass and 19- EconomyClass.");
 		validCommand();
 		System.out.println();
 		int seatNumber = Integer.valueOf(s.nextLine());
@@ -145,31 +148,36 @@ public class UserInterface {
 		String firstname = s.nextLine();
 		System.out.print("Lastname: ");
 		String lastname = s.nextLine();
+		//Create new customer
 		Customer customer = new Customer(firstname,lastname);
+		//Create new seat
 		Seat s = new SeatClass(seatNumber);
 				
 		//Create new Booking
 		Booking o = new Booking(createBookingNumber(),customer,a,s);
 		try {
+			// 
 			write(o.csvFile());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		//Print the booked trip.
 		System.out.println();
 		System.out.println("Your booking: ");
 		System.out.println(o.toString());
 	
 	}
-	//Find reservation
-	public void findReservation() {
-		
+	/**Find your reservation.
+	 * 
+	 */
+	public void findReservation() {	
 		
 		System.out.print("Your booking number: ");
 		validCommand();
 		int number = Integer.valueOf(s.nextLine());
-		
+		//Check if list is empty
 		if(!bookings.isEmpty()) {
 			for(Booking b:bookings) {
 				if(b.getBookingNumber()==number) {
@@ -177,12 +185,13 @@ public class UserInterface {
 					System.out.println(b.toString());			
 				}			
 			}
-		} else {
-			
-			System.out.println("There are no booking for this number.");
 		}
+		System.out.println("There are no booking for this number.");
 	}
-	//Cancel reservation
+	/**Cancel reservation.
+	 * 
+	 * @throws IOException
+	 */
 	public void cancelReservation() throws IOException {
 			
 		
@@ -190,6 +199,7 @@ public class UserInterface {
 		validCommand();
 		int number = Integer.valueOf(s.nextLine());
 		Booking c = null;
+		//if list is empty
 		if(bookings.isEmpty()) {
 			System.out.println("There are no booking for this number.");
 			return;
@@ -201,12 +211,14 @@ public class UserInterface {
 					c = b;
 				}
 			}
+			//If there is no booking number
 			if(c == null) {
 				System.out.println("There are no booking for this number.");
 				return;
 			}
 		
 		}
+		//Cancel the selected booking
 		System.out.println("Do you want to cancel this booking? Press Y = Yes N = No");
 		String a = s.nextLine();
 		
@@ -214,7 +226,6 @@ public class UserInterface {
 			System.out.println("Your booking has not been canceled.");
 		} else if(a.toUpperCase().equals("Y")) {
 			if(!bookings.isEmpty()) {
-				System.out.println(bookings);
 				//Can't remove from the list without creating an object. Why?
 				Booking r = null;
 				for(Booking b:bookings) {
@@ -223,31 +234,41 @@ public class UserInterface {
 					}					
 				}
 				bookings.remove(r);
+				//Update bookings.txt file
 				clearTextFile();
 				for(Booking j:bookings) {
 					write(j.csvFile());
 				}
 				readAllLines();
 				
-				System.out.println("Booking has been canceled.");				
+				System.out.println("The booking has been canceled.");				
 			}else {
 				System.out.println("No bookings available.");				
 			}						
 		}
 	}
 	
-	//Add seats to flight
+	/** Add seats to the flight.
+	 * 
+	 * @param numberOfSeats
+	 */
 	public void addSeats(int numberOfSeats) {
 		
+		// Clear list
 		freeSeats.clear();
 		for(int i = 1;i<numberOfSeats+1;i++) {
 			freeSeats.add(i);
 		}	
 	}
 	
-	//Get free seats to specific flight
+	/** Free seats on the flight
+	 * 
+	 * @param f
+	 * @return A list of free seats.
+	 */
 	public ArrayList<Integer> freeSeats(Flight f){
 		
+		// Clear list
 		reservedSeats.clear();
 		for (Booking b: bookings) {
 			if(f.getFlightnumber()==b.getFlight().getFlightnumber()){
@@ -258,14 +279,19 @@ public class UserInterface {
 		return freeSeats;
 	}
 	
-	//check if flight has no seats
+	/** Check if flight has no seats.
+	 * 
+	 * @return True or False
+	 */
 	public boolean fullFlight() {
 		if(freeSeats.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
-	//check if command is valid
+	/** Check if command is valid.
+	 * 
+	 */
 	public void validCommand() {
 		
 		while (!s.hasNextInt()) {
@@ -274,16 +300,23 @@ public class UserInterface {
 			System.out.println();
 		}
 	}
-	
-	public void write(String trip)throws IOException{
-		//File f = new File("saveBooking/bookings.txt");
+	/** Write text to .txt file.
+	 * 	
+	 * @param booking
+	 * @throws IOException
+	 */
+	public void write(String booking)throws IOException{
 		
 		FileWriter fw = new FileWriter("saveBooking/bookings.txt",true);
 		
-		fw.write(trip+"\n");
+		fw.write(booking+"\n");
 		fw.flush();
 		fw.close();
 	}
+	/** Clear .txt file.
+	 * 
+	 * @throws IOException
+	 */
 	public void clearTextFile() throws IOException {
 		
 		FileWriter fw = new FileWriter("saveBooking/bookings.txt");
@@ -291,9 +324,11 @@ public class UserInterface {
 		fw.flush();
 		fw.close();
 	}
+	/** Read all lines from text file.
+	 * 
+	 */
 	public void readAllLines() {
 		
-		//read all lines in file
 		ArrayList<String> lines = new ArrayList<>();
 		
 		if("saveBooking/bookings.txt".length()==0) {
@@ -313,7 +348,40 @@ public class UserInterface {
 		addBookingsToList(lines);
 		
 		}
-	
+	/** Create Booking object and add to bookings list.
+	 * 
+	 * @param lines
+	 */
+	public void addBookingsToList(ArrayList<String> lines) {
+		
+		if (lines.isEmpty()||lines==null) {
+			return;
+		}else {
+			for(String l:lines) {
+				String[] pieces = l.split(",");
+				int bookingNumber = Integer.valueOf(pieces[0]);
+				int flightNumber = Integer.valueOf(pieces[1]);
+				String date = pieces[2];
+				String target = pieces[3];
+				String firstname = pieces[4];
+				String lastname = pieces[5];
+				int seatnumber = Integer.valueOf(pieces[6]);
+				//Create new customer
+				Customer c = new Customer(firstname,lastname);
+				//Create new Flight
+				Flight f = new Flight(flightNumber,date,target);
+				//Create new Seat
+				Seat s = new SeatClass(seatnumber);
+				//Create new Booking
+				Booking b = new Booking(bookingNumber,c,f,s);
+				bookings.add(b);
+			}
+		}
+	}
+	/** Create booking numbers.
+	 * 
+	 * @return A number of booking
+	 */
 	public int createBookingNumber() {
 		int number = 0;
 		
@@ -328,41 +396,5 @@ public class UserInterface {
 		}	
 		return number;
 	}
-	//create Booking object and add to list
-	public void addBookingsToList(ArrayList<String> lines) {
-		
-		if (lines.isEmpty()||lines==null) {
-			
-		}else {
-			for(String l:lines) {
-				String[] pieces = l.split(",");
-				int bookingNumber = Integer.valueOf(pieces[0]);
-				int flightNumber = Integer.valueOf(pieces[1]);
-				String date = pieces[2];
-				String target = pieces[3];
-				String firstname = pieces[4];
-				String lastname = pieces[5];
-				int seatnumber = Integer.valueOf(pieces[6]);
-				Customer c = new Customer(firstname,lastname);
-				Flight f = new Flight(flightNumber,date,target);
-				Seat s = new SeatClass(seatnumber);
-				
-				Booking b = new Booking(bookingNumber,c,f,s);
-				bookings.add(b);
-			}
-		}
-	}
-	
-	
-	/*public void Lines(ArrayList<String>){
-		String[] pieces = s.split(",");
-		ArrayList<String> words = new ArrayList<>();
-		
-		for(String w:pieces) {
-			words.add(w);
-		}
-		System.out.println(words);
-		return words;
-	}*/
 }
 
