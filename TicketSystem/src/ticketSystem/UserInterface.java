@@ -190,7 +190,7 @@ public class UserInterface {
 	}
 	/**Cancel reservation.
 	 * 
-	 * @throws IOException
+	 * @throws IOException If Exception occurs.
 	 */
 	public void cancelReservation() throws IOException {
 			
@@ -250,7 +250,7 @@ public class UserInterface {
 	
 	/** Add seats to the flight.
 	 * 
-	 * @param numberOfSeats
+	 * @param numberOfSeats All seats of the flight.
 	 */
 	public void addSeats(int numberOfSeats) {
 		
@@ -263,7 +263,7 @@ public class UserInterface {
 	
 	/** Free seats on the flight
 	 * 
-	 * @param f
+	 * @param f Flight
 	 * @return A list of free seats.
 	 */
 	public ArrayList<Integer> freeSeats(Flight f){
@@ -281,7 +281,7 @@ public class UserInterface {
 	
 	/** Check if flight has no seats.
 	 * 
-	 * @return True or False
+	 * @return True if flight is full else false.
 	 */
 	public boolean fullFlight() {
 		if(freeSeats.isEmpty()) {
@@ -302,8 +302,8 @@ public class UserInterface {
 	}
 	/** Write text to .txt file.
 	 * 	
-	 * @param booking
-	 * @throws IOException
+	 * @param booking String format of booking.
+	 * @throws IOException If Exception occurs.
 	 */
 	public void write(String booking)throws IOException{
 		
@@ -315,7 +315,7 @@ public class UserInterface {
 	}
 	/** Clear .txt file.
 	 * 
-	 * @throws IOException
+	 * @throws IOException If Exception occurs.
 	 */
 	public void clearTextFile() throws IOException {
 		
@@ -350,7 +350,7 @@ public class UserInterface {
 		}
 	/** Create Booking object and add to bookings list.
 	 * 
-	 * @param lines
+	 * @param lines A list of all bookings read from the text file.
 	 */
 	public void addBookingsToList(ArrayList<String> lines) {
 		
@@ -380,7 +380,7 @@ public class UserInterface {
 	}
 	/** Create booking numbers.
 	 * 
-	 * @return A number of booking
+	 * @return Always return a booking number that does not exist.
 	 */
 	public int createBookingNumber() {
 		int number = 0;

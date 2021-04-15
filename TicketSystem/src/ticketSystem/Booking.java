@@ -13,12 +13,12 @@ public class Booking {
 	private Seat SeatClass;
 	private ArrayList<Flight> flights;
 	
-	/**Create a booking
+	/**Create a new booking
 	 * 
-	 * @param bookingNumber
-	 * @param customer
-	 * @param flight
-	 * @param SeatClass
+	 * @param bookingNumber Booking number 
+	 * @param customer Customer
+	 * @param flight Flight
+	 * @param SeatClass SeatClass
 	 */
 	public Booking(int bookingNumber,Customer customer, Flight flight, 
 			Seat SeatClass) {
@@ -36,21 +36,21 @@ public class Booking {
 	}
 	/**Add flight to ArrayList.
 	 * 
-	 * @param f
+	 * @param f Flight
 	 */
 	public void addFlight(Flight f) {
 		flights.add(f);
 	}
 	/**Remove flight from ArrayList flights.
 	 * 
-	 * @param f
+	 * @param f Flight
 	 */
 	public void removeFlight(Flight f) {
 		flights.remove(f);
 	}
 	/**Check flight number validity.
 	 * 
-	 * @param number
+	 * @param number Flight number
 	 * @return true if number exists.
 	 */
 	public boolean validFlightNumber(int number){
@@ -61,10 +61,6 @@ public class Booking {
 			}
 		}
 		return false;	
-	}
-	
-	public void setFlights(ArrayList<Flight> flights) {
-		this.flights = flights;
 	}
 	/** Print all flights.
 	 * 
@@ -93,14 +89,14 @@ public class Booking {
 	}
 	/** Sets booking number.
 	 * 
-	 * @param bookingNumber
+	 * @param bookingNumber this bookingnumber
 	 */
 	public void setBookingNumber(int bookingNumber) {
 		this.bookingNumber = bookingNumber;
 	}
 	/** Gets seat class.
 	 * 
-	 * @return Seat format of seat class.
+	 * @return Seat class FirstClass or EconomyClass.
 	 */
 	public Seat getSeatClass() {
 		return SeatClass;
@@ -114,14 +110,14 @@ public class Booking {
 	}
 	/** Gets flight.
 	 * 
-	 * @return Flight format of flight.
+	 * @return This flight.
 	 */
 	public Flight getFlight() {
 		return flight;
 	}
 	/** Sets flight.
 	 * 
-	 * @param flight
+	 * @param flight Flight
 	 */
 	public void setFlight(Flight flight) {
 		this.flight = flight;

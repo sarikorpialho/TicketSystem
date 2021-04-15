@@ -8,7 +8,7 @@ public class Seat {
 	private int seatNumber;
 	/**Create Seat with seat number.
 	 * 	
-	 * @param seatNumber
+	 * @param seatNumber This is seat number
 	 */
 	public Seat(int seatNumber) {
 		
@@ -16,14 +16,14 @@ public class Seat {
 	}
 	/** Gets seat number.
 	 *  
-	 * @return Integer value of seat number.
+	 * @return this seat number.
 	 */
 	public int getSeatNumber() {
 		return seatNumber;
 	}
 	/** Set seat number.
 	 * 
-	 * @param seatNumber
+	 * @param seatNumber Sets seat number.
 	 */
 	public void setSeatNumber(int seatNumber) {
 		this.seatNumber = seatNumber;

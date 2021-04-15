@@ -11,10 +11,10 @@ public class Flight {
 	private int flightnumber;		
 	/**Creates a flight.
 	 * 
-	 * @param flightnumber
-	 * @param date
-	 * @param target
-	 * @param numberOfSeats
+	 * @param flightnumber Flight number.
+	 * @param date String format of date.
+	 * @param target Flights target.
+	 * @param numberOfSeats All Seats on the flight.
 	 */
 	public Flight(int flightnumber,String date, String target, int numberOfSeats) {
 		this.target = target;
@@ -24,9 +24,9 @@ public class Flight {
 	}
 	/** Create new flight.
 	 * 
-	 * @param flightnumber
-	 * @param date
-	 * @param target
+	 * @param flightnumber Flight number.
+	 * @param date String format of date.
+	 * @param target Flights target.
 	 */
 	public Flight(int flightnumber,String date, String target) {
 		this.target = target;
@@ -40,28 +40,28 @@ public class Flight {
 	}
 	/** Gets flight number.
 	 * 
-	 * @return Integer value of flight number.
+	 * @return This flight number.
 	 */
 	public int getFlightnumber() {
 		return flightnumber;
 	}
 	/** Sets flight number.
 	 * 
-	 * @param flightnumber
+	 * @param flightnumber Number of the flight.
 	 */
 	public void setFlightnumber(int flightnumber) {
 		this.flightnumber = flightnumber;
 	}
 	/** Gets target of the flight.
 	 * 
-	 * @return Integer value of flight number.
+	 * @return This target.
 	 */
 	public String getTarget() {
 		return target;
 	}
 	/** Sets target of the flight.
 	 * 
-	 * @param target
+	 * @param target Target
 	 */
 	public void setTarget(String target) {
 		this.target = target;
@@ -75,21 +75,21 @@ public class Flight {
 	}
 	/** Sets date of flight.
 	 * 
-	 * @param date
+	 * @param date String format of date.
 	 */
 	public void setDate(String date) {
 		this.date = date;
 	}
 	/** Gets flight seats.
 	 * 
-	 * @return Integer value of seats.
+	 * @return This seats.
 	 */
 	public int getNumberOfSeats() {
 		return numberOfSeats;
 	}
 	/** Sets flight seats.
 	 * 
-	 * @param numberOfSeats
+	 * @param numberOfSeats All Seats on the flight.
 	 */
 	public void setNumberOfSeats(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
