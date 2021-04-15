@@ -1,5 +1,9 @@
 package ticketSystem;
-
+/** Represents seat class
+ * 
+ * @author korpi
+ *
+ */
 public class SeatClass extends Seat{
 	/**Create seat class.
 	 * 
