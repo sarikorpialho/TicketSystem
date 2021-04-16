@@ -178,15 +178,22 @@ public class UserInterface {
 		validCommand();
 		int number = Integer.valueOf(s.nextLine());
 		//Check if list is empty
-		if(!bookings.isEmpty()) {
+		Booking c = null;
+		if(bookings.isEmpty()) {
+			System.out.println("There are no booking for this number.");
+			return;
+		}else {	
 			for(Booking b:bookings) {
 				if(b.getBookingNumber()==number) {
 					System.out.println("Your booking: ");
-					System.out.println(b.toString());			
-				}			
+					System.out.println(b.toString());
+					c = b;
+				}
 			}
 		}
-		System.out.println("There are no booking for this number.");
+		if(c == null) {
+			System.out.println("There are no booking for this number.");
+		}
 	}
 	/**Cancel reservation.
 	 * 
