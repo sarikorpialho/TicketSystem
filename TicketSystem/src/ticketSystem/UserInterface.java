@@ -52,9 +52,12 @@ public class UserInterface {
 			System.out.println();
 			
 			//Check if command is valid
-			validCommand();
-				
-			int command = Integer.valueOf(s.nextLine());		
+			int command = 0;
+			try {
+			command = Integer.valueOf(s.nextLine());
+			}catch (Exception e) {
+				System.out.println("Invalid number.");
+			}
 			
 			if (command > 4) {
 				System.out.println("Invalid number. Please try again.");
@@ -76,9 +79,16 @@ public class UserInterface {
 			
 			if(command == 1) {
 				newReservation();
-			}		
+			}	
 		}
 			
+	}
+	boolean tyhja(String c) {
+		if(c !=null && c.trim().isEmpty()) {
+			System.out.println("Tyhjä");
+			return true;
+		}
+		return false;
 	}
 	/** Make new reservation.
 	 * 
@@ -105,12 +115,12 @@ public class UserInterface {
 		int number = 0;
 		//Check flight number validity
 		while(newFlight.validFlightNumber(number)==false) {
-			System.out.print("Your flight number? : ");
-			validCommand();
-			number = Integer.valueOf(s.nextLine());	
-			System.out.println();
-		}
-		
+			try {
+				number = Integer.valueOf(s.nextLine());
+			}catch (Exception e) {
+				System.out.println("Invalid number.");
+			}
+		}		
 		//Get free seats of selected flight
 		System.out.println("Free seats: ");
 		System.out.println();
@@ -136,13 +146,16 @@ public class UserInterface {
 			System.out.println("Flight is full.");
 			return;
 		}
-		
-		System.out.println();
-		System.out.print("Please, choose your seat number: ");
-		System.out.println("Numbers 1-18 FirstClass and 19- EconomyClass.");
-		validCommand();
-		System.out.println();
-		int seatNumber = Integer.valueOf(s.nextLine());
+		int seatNumber = 0;
+		//Check the seat number
+		while(validSeat(seatNumber)==false) {
+			
+			try {
+				seatNumber = Integer.valueOf(s.nextLine());
+				}catch (Exception e) {
+					System.out.println("Invalid number.");
+				}
+		}
 		
 		System.out.print("Firstname: ");
 		String firstname = s.nextLine();
@@ -151,8 +164,7 @@ public class UserInterface {
 		//Create new customer
 		Customer customer = new Customer(firstname,lastname);
 		//Create new seat
-		Seat s = new SeatClass(seatNumber);
-				
+		Seat s = new SeatClass(seatNumber);				
 		//Create new Booking
 		Booking o = new Booking(createBookingNumber(),customer,a,s);
 		try {
@@ -169,69 +181,68 @@ public class UserInterface {
 		System.out.println(o.toString());
 	
 	}
+	/**Validate chosen seat number
+	 * 
+	 * @param number seat number
+	 * @return true if seat number exist else false
+	 */
+	public boolean validSeat(int number) {
+		
+		for(int i = 0;i<freeSeats.size();i++) {
+			if(freeSeats.get(i)==number){
+				return true;
+			}
+		}
+		System.out.println();
+		System.out.print("Please, choose your seat number: ");
+		System.out.println("Numbers 1-18 FirstClass and 19- EconomyClass.");
+		return false;
+	}
 	/**Find your reservation.
 	 * 
 	 */
 	public void findReservation() {	
 		
-		System.out.print("Your booking number: ");
-		validCommand();
-		int number = Integer.valueOf(s.nextLine());
-		//Check if list is empty
-		Booking c = null;
-		if(bookings.isEmpty()) {
-			System.out.println("There are no booking for this number.");
-			return;
-		}else {	
-			for(Booking b:bookings) {
-				if(b.getBookingNumber()==number) {
-					System.out.println("Your booking: ");
-					System.out.println(b.toString());
-					c = b;
-				}
+		int number = 0;
+		while(findBooking(number)==false) {
+			try {
+				number = Integer.valueOf(s.nextLine());
+				}catch (Exception e) {
+					System.out.println("Invalid number.");
+				}			
 			}
-		}
-		if(c == null) {
-			System.out.println("There are no booking for this number.");
-		}
-	}
+		
+	}	
 	/**Cancel reservation.
 	 * 
 	 * @throws IOException If Exception occurs.
 	 */
 	public void cancelReservation() throws IOException {
 			
-		
-		System.out.print("Your booking number: "); 
-		validCommand();
-		int number = Integer.valueOf(s.nextLine());
-		Booking c = null;
-		//if list is empty
 		if(bookings.isEmpty()) {
-			System.out.println("There are no booking for this number.");
+			System.out.println("No bookings available");
 			return;
-		}else {	
-			for(Booking b:bookings) {
-				if(b.getBookingNumber()==number) {
-					System.out.println("Your booking: ");
-					System.out.println(b.toString());
-					c = b;
-				}
-			}
-			//If there is no booking number
-			if(c == null) {
-				System.out.println("There are no booking for this number.");
-				return;
+		}
+		 
+		int number = 0;
+		//find selected booking
+		while(findBooking(number)==false) {
+		try {
+			number = Integer.valueOf(s.nextLine());
+			}catch (Exception e) {
+				System.out.println("Invalid number.");
 			}
 		
 		}
 		//Cancel the selected booking
 		System.out.println("Do you want to cancel this booking? Press Y = Yes N = No");
 		String a = s.nextLine();
-		
-		if(a.toUpperCase().equals("N")){
+		//Check if line is empty
+		if(a.trim().equals("")) {
 			System.out.println("Your booking has not been canceled.");
-		} else if(a.toUpperCase().equals("Y")) {
+		}else if(a.toUpperCase().equals("N")){
+			System.out.println("Your booking has not been canceled.");
+		}else if(a.toUpperCase().equals("Y")) {
 			if(!bookings.isEmpty()) {
 				//Can't remove from the list without creating an object. Why?
 				Booking r = null;
@@ -252,9 +263,28 @@ public class UserInterface {
 			}else {
 				System.out.println("No bookings available.");				
 			}						
+		}else {
+			System.out.println("Your booking has not been canceled.");
 		}
 	}
-	
+	/** Create booking numbers.
+	 * 
+	 * @return Always return a booking number that does not exist.
+	 */
+	public int createBookingNumber() {
+		int number = 0;
+		
+		if(!bookings.isEmpty()) {
+			for (Booking b:bookings) {
+				bookingNumber.add(b.getBookingNumber());
+			}
+			Collections.sort(bookingNumber);
+			number = bookingNumber.get(bookingNumber.size()-1)+1;
+		}else {
+			number = 1000;
+		}	
+		return number;
+	}
 	/** Add seats to the flight.
 	 * 
 	 * @param numberOfSeats All seats of the flight.
@@ -285,6 +315,30 @@ public class UserInterface {
 		freeSeats.removeAll(reservedSeats);
 		return freeSeats;
 	}
+	/**Find booking
+	 * 
+	 * @param number booking number
+	 * @return 
+	 */
+	public boolean findBooking(int number) {
+		
+		System.out.println();
+		//Check if list is empty
+		if(bookings.isEmpty()) {
+			System.out.println("There are no bookings available.");
+			return true;
+		}else {	
+			for(Booking b:bookings) {
+				if(b.getBookingNumber()==number) {
+					System.out.println("Your booking: ");
+					System.out.println(b.toString());
+					return true;
+				}
+			}
+		}
+		System.out.print("Please enter booking number: ");
+		return false;
+	}
 	
 	/** Check if flight has no seats.
 	 * 
@@ -295,17 +349,6 @@ public class UserInterface {
 			return true;
 		}
 		return false;
-	}
-	/** Check if command is valid.
-	 * 
-	 */
-	public void validCommand() {
-		
-		while (!s.hasNextInt()) {
-			System.out.println("Invalid number. Please try again.");
-			s.nextLine();			
-			System.out.println();
-		}
 	}
 	/** Write text to .txt file.
 	 * 	
@@ -385,23 +428,6 @@ public class UserInterface {
 			}
 		}
 	}
-	/** Create booking numbers.
-	 * 
-	 * @return Always return a booking number that does not exist.
-	 */
-	public int createBookingNumber() {
-		int number = 0;
-		
-		if(!bookings.isEmpty()) {
-			for (Booking b:bookings) {
-				bookingNumber.add(b.getBookingNumber());
-			}
-			Collections.sort(bookingNumber);
-			number = bookingNumber.get(bookingNumber.size()-1)+1;
-		}else {
-			number = 1000;
-		}	
-		return number;
-	}
+	
 }
 
