@@ -7,7 +7,7 @@ package ticketSystem;
 public class SeatClass extends Seat{
 	/**Create seat class.
 	 * 
-	 * @param seatNumber
+	 * @param seatNumber Seat number.
 	 */	
 	public SeatClass(int seatNumber) {
 		super(seatNumber);
@@ -15,7 +15,7 @@ public class SeatClass extends Seat{
 	}
 	/** Gets seat type.
 	 * 
-	 * @param seatnumber
+	 * @param seatnumber Seat number.
 	 * @return SeatTypes FirstClass or EconomyClass based seat number.
 	 */
 	public SeatTypes getSeatTypes(int seatnumber) {

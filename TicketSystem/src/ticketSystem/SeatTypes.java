@@ -1,5 +1,5 @@
 package ticketSystem;
-/** Represent seat types of the flight.
+/** Represent enum seat types of the flight.
  * 
  * @author korpi
  *
