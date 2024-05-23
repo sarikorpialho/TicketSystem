@@ -12,6 +12,8 @@ public class Booking {
 	private Customer customer;
 	private Seat SeatClass;
 	private ArrayList<Flight> flights;
+	private Animal animal;
+	
 	
 	/**Create a new booking
 	 * 
@@ -21,12 +23,12 @@ public class Booking {
 	 * @param SeatClass SeatClass
 	 */
 	public Booking(int bookingNumber,Customer customer, Flight flight, 
-			Seat SeatClass) {
+			Seat SeatClass, Animal animal) {
 		this.bookingNumber = bookingNumber;
 		this.flight = flight;
 		this.customer = customer;
-		this.SeatClass = SeatClass;	
-		
+		this.SeatClass = SeatClass;
+		this.animal = animal;
 	}
 	/**Create ArrayList for flights.
 	 * 
@@ -68,6 +70,7 @@ public class Booking {
 	public void printAllFlights() {	
 		
 		for(Flight f:flights) {
+			System.out.println();
 			System.out.println(f.toString());
 		}
 	}
@@ -123,6 +126,13 @@ public class Booking {
 		this.flight = flight;
 	}
 	
+	
+	public Animal getAnimal() {
+		return animal;
+	}
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
 	@Override
 	public String toString() {
 		return "Booking number: "+this.bookingNumber+" "+"Customer:" + customer + 
