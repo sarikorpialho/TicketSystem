@@ -81,13 +81,6 @@ public class UserInterface {
 		}
 			
 	}
-	boolean tyhja(String c) {
-		if(c !=null && c.trim().isEmpty()) {
-			System.out.println("Tyhjä");
-			return true;
-		}
-		return false;
-	}
 	/** Make new reservation.
 	 * 
 	 */
@@ -155,16 +148,16 @@ public class UserInterface {
 				}
 		}
 		
-		System.out.print("Firstname: ");
+		System.out.println("Firstname: ");
 		String firstname = s.nextLine();
-		System.out.print("Lastname: ");
+		System.out.println("Lastname: ");
 		String lastname = s.nextLine();
 		//Create new customer
 		Customer customer = new Customer(firstname,lastname);
 		//Create new seat
-		Seat s = new SeatClass(seatNumber);				
+		Seat seat = new SeatClass(seatNumber);				
 		//Create new Booking
-		Booking o = new Booking(createBookingNumber(),customer,a,s);
+		Booking o = new Booking(createBookingNumber(),customer,a,seat);
 		try {
 			// 
 			write(o.csvFile());
@@ -172,6 +165,20 @@ public class UserInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//Animals on board
+		System.out.println("Do you have animals? Please select Y/N");
+		String letter = s.nextLine();
+		if(letter.toUpperCase().equals("Y")) {
+			System.out.println("Animals name?");
+			String aName = s.nextLine();
+			System.out.println("Age?");
+			int aAge = Integer.valueOf(s.nextLine());
+			System.out.println("Animals breed?");
+			String breed = s.nextLine();
+			Animal x = new Animal(aName,aAge,breed);
+		}
+		
+		
 		
 		//Print the booked trip.
 		System.out.println();
@@ -193,7 +200,7 @@ public class UserInterface {
 		}
 		System.out.println();
 		System.out.print("Please, choose your seat number: ");
-		System.out.println("Numbers 1-18 FirstClass and 19- EconomyClass.");
+		System.out.println("Numbers 1-18 FirstClass and 19- EconomyClass. ");
 		return false;
 	}
 	/**Find your reservation.
@@ -425,6 +432,9 @@ public class UserInterface {
 				bookings.add(b);
 			}
 		}
+	}
+	public void validCommand(){
+		/*tee yleinen metodi, joka tarkistaa, onko sy�te validi*/
 	}
 	
 }
