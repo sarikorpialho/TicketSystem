@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Scanner r = new Scanner(System.in);
-		UserInterface i = new UserInterface(r);		
+		UserInterface i = new UserInterface(r);	
 		
 		i.startBooking();
 	}
