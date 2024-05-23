@@ -55,13 +55,11 @@ public class UserInterface {
 			int command = 0;
 			try {
 			command = Integer.valueOf(s.nextLine());
+			if (command >= 5) {
+				System.out.println("Invalid number. Please try again.");
+			}
 			}catch (Exception e) {
 				System.out.println("Invalid number.");
-			}
-			
-			if (command > 4) {
-				System.out.println("Invalid number. Please try again.");
-				System.out.println();
 			}
 			
 			if(command == 4) {
@@ -85,7 +83,7 @@ public class UserInterface {
 	}
 	boolean tyhja(String c) {
 		if(c !=null && c.trim().isEmpty()) {
-			System.out.println("Tyhj‰");
+			System.out.println("Tyhj√§");
 			return true;
 		}
 		return false;
@@ -382,7 +380,7 @@ public class UserInterface {
 		ArrayList<String> lines = new ArrayList<>();
 		
 		if("saveBooking/bookings.txt".length()==0) {
-			System.out.println("Tyhj‰");
+			System.out.println("Tyhj√§");
 		}
 		
 		try(Scanner reader = new Scanner(new File("saveBooking/bookings.txt"))){
