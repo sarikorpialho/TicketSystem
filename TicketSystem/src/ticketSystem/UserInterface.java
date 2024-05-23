@@ -387,7 +387,7 @@ public class UserInterface {
 		ArrayList<String> lines = new ArrayList<>();
 		
 		if("saveBooking/bookings.txt".length()==0) {
-			System.out.println("Tyhjä");
+			System.out.println("TyhjÃ¤");
 		}
 		
 		try(Scanner reader = new Scanner(new File("saveBooking/bookings.txt"))){
@@ -434,7 +434,7 @@ public class UserInterface {
 		}
 	}
 	public void validCommand(){
-		/*tee yleinen metodi, joka tarkistaa, onko syöte validi*/
+		/*tee yleinen metodi, joka tarkistaa, onko syï¿½te validi*/
 	}
 	
 }
